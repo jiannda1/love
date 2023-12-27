@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>孔祥涛 Love 杨晓雨</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style type="text/css">
+        @font-face {
+            font-family: digit;
+            src: url('digital.ttf') format("truetype");
+        }
+    </style>
+    <link href="css/default.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/garden.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+
+<body>
+<div id="mainDiv">
+    <div id="content">
+        <div id="code">
+            <span class="comments">#小雨宝宝#</span><br/><br/>
+            <span class="comments"># 我是个程序员,</span><br/><br/>
+            <span class="comments"># 所以我想用写代码的方式来做一个网页纪念我们一起度过的第一年</span><br/><br/>
+            <span class="comments">#小雨宝宝#</span><br/><br/>
+            i = Boy(<span class="string">"孔祥涛"</span>)<br/><br/>
+            u = Girl(<span class="string">"杨晓雨"</span>)<br/><br/>
+            <span class="comments"># 我们相识于2023年10月22日.</span><br/><br/>
+            <span class="comments">#慢慢的我们聊了很多，发现各自对方的性格特点和爱好，之后我向你表达了我对你的爱意. </span><br/><br/>
+            <span class="comments"># 2023年11月10号，这是一个我需要用心去铭记的日子，这一天你成为了我的女朋友，我也很荣幸自己能够做你的男友.</span><br/><br/>
+            <span class="comments"># 从那以后，我们每天都过着和谐幸福的生活.</span><br/><br/>
+            <span class="comments"># 我们在一起分享着各自的生活，每天所发生的有趣的事情.</span><br/><br/>
+            <span class="comments"># 分享着小雨宝宝喜欢吃的美食，首先我要学习的就是可乐鸡翅，还有其他的美食，都做给小雨宝宝吃.</span><br/>
+            <br/>
+            <span class="comments"># 我们都在心中都互相想着对方.</span><br/><br/>
+            <span class="comments"># 我们还约定好一起去动物园，海洋馆，去各种各样的地方，带着小雨宝宝品尝喜欢吃的美食.</span><br/><br/>
+            <span class="comments"># 有时候我们之间可能会有一些小矛盾，主要原因在我的身上，我之前有过的问题之后肯定不会再犯.</span>
+            <br/><br/>
+            <span class="comments"># 但是我们会一起解决矛盾，以后的日子越来越和谐，两个人越来越甜蜜，未来的日子越来越美好，.</span><br/>
+            <br/>
+            <span class="comments"># 你是我最想守护最想爱的女孩，用我真挚的心去好好的爱着你，小雨宝宝.</span><br/><br/>
+            <span class="comments"># 我也认真的考虑过我们的未来，毕业以后我们就去一起，绝不会在异地，在你身边好好的照顾你.</span><br/>
+            <br/>
+            <span class="comments"># 我会永远好好的爱你.</span><br/>
+            <br/>
+        </div>
+        <div id="loveHeart">
+            <canvas id="garden"></canvas>
+            <div id="words">
+                <div id="messages">
+                    小雨, 我孔祥涛会用心去一直对你，用爱好好的疼你
+                    <div id="elapseClock"></div>
+                </div>
+                <div id="loveu">永远爱你.<br/>
+                    <div class="signature">- 孔祥涛</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="copyright">
+
+    </div>
+</div>
+<script type="text/javascript">
+    var offsetX = $("#loveHeart").width() / 2;
+    var offsetY = $("#loveHeart").height() / 2 - 55;
+    var together = new Date();
+    // 此处月份介于 0 ~ 11 之间。用本地时间表示，如 8 月要用 7 表示。
+    together.setFullYear(2023, 10, 10);
+    together.setHours(13);
+    together.setMinutes(14);
+    together.setSeconds(0);
+    together.setMilliseconds(0);
+
+    if (!document.createElement('canvas').getContext) {
+        var msg = document.createElement("div");
+        msg.id = "errorMsg";
+        msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+";
+        document.body.appendChild(msg);
+        $("#code").css("display", "none")
+        $("#copyright").css("position", "absolute");
+        $("#copyright").css("bottom", "10px");
+        document.execCommand("stop");
+    } else {
+        setTimeout(function () {
+            startHeartAnimation();
+        }, 500);
+
+        timeElapse(together);
+        setInterval(function () {
+            timeElapse(together);
+        }, 500);
+        adjustCodePosition();
+        $("#code").typewriter();
+    }
+</script>
+</body>
+</html>
