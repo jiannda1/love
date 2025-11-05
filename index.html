@@ -17,6 +17,21 @@
 </head>
 
 <body>
+<!-- 背景音乐 -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="1.mp3" type="audio/mpeg">
+    <source src="1.MP3" type="audio/mpeg">
+    您的浏览器不支持音频播放。
+</audio>
+
+<!-- 音乐播放提示 -->
+<div id="musicTip" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+    <div style="text-align: center; color: #fff; font-size: 24px; padding: 40px; background: rgba(255,105,180,0.3); border-radius: 20px; border: 2px solid #ff69b4;">
+        <p style="margin-bottom: 20px;">💕 点击屏幕开始播放音乐 💕</p>
+        <p style="font-size: 16px; opacity: 0.8;">Click anywhere to play music</p>
+    </div>
+</div>
+
 <div id="mainDiv">
     <div id="content">
         <div id="code">
@@ -47,11 +62,9 @@
         <div id="loveHeart">
             <canvas id="garden"></canvas>
              <div id="words">
-                <div id="messages">
-                  即使身边世事再毫无道理，
-                  与你永远亦连在一起，
-                  你不放下我我不放下你，
-                  我想确定每日挽住同样的手臂。
+                <div id="messages" style="text-align: left;">
+                  好想好想和你在一起<br/>
+                  和你一起数天上的星星
                     <div id="elapseClock"></div>
                 </div>
                 <div id="loveu"><br/>
@@ -80,27 +93,75 @@
     together.setSeconds(0);
     together.setMilliseconds(0);
 
-    if (!document.createElement('canvas').getContext) {
-        var msg = document.createElement("div");
-        msg.id = "errorMsg";
-        msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+";
-        document.body.appendChild(msg);
-        $("#code").css("display", "none")
-        $("#copyright").css("position", "absolute");
-        $("#copyright").css("bottom", "10px");
-        document.execCommand("stop");
-    } else {
-        setTimeout(function () {
-            startHeartAnimation();
-        }, 500);
+    // 定义启动动画的函数
+    function startAllAnimations() {
+        if (!document.createElement('canvas').getContext) {
+            var msg = document.createElement("div");
+            msg.id = "errorMsg";
+            msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+";
+            document.body.appendChild(msg);
+            $("#code").css("display", "none")
+            $("#copyright").css("position", "absolute");
+            $("#copyright").css("bottom", "10px");
+            document.execCommand("stop");
+        } else {
+            setTimeout(function () {
+                startHeartAnimation();
+            }, 500);
 
-        timeElapse(together);
-        setInterval(function () {
             timeElapse(together);
-        }, 500);
-        adjustCodePosition();
-        $("#code").typewriter();
+            setInterval(function () {
+                timeElapse(together);
+            }, 500);
+            adjustCodePosition();
+            $("#code").typewriter();
+        }
     }
+
+    // 背景音乐播放控制
+    window.addEventListener('load', function() {
+        var bgMusic = document.getElementById('bgMusic');
+        var musicTip = document.getElementById('musicTip');
+        var animationStarted = false; // 标记动画是否已启动
+        
+        // 点击任意位置播放音乐并启动动画
+        musicTip.addEventListener('click', function() {
+            bgMusic.play().then(function() {
+                // 音乐开始播放，隐藏提示
+                musicTip.style.display = 'none';
+                console.log('音乐播放成功');
+                
+                // 启动所有动画效果
+                if (!animationStarted) {
+                    animationStarted = true;
+                    startAllAnimations();
+                    console.log('动画已启动');
+                }
+            }).catch(function(error) {
+                console.error('音乐播放失败:', error);
+                alert('音乐播放失败，请检查音频文件是否存在');
+            });
+        });
+        
+        // 尝试自动播放（某些浏览器可能允许）
+        var playPromise = bgMusic.play();
+        if (playPromise !== undefined) {
+            playPromise.then(function() {
+                // 自动播放成功，隐藏提示并启动动画
+                musicTip.style.display = 'none';
+                console.log('音乐自动播放成功');
+                
+                if (!animationStarted) {
+                    animationStarted = true;
+                    startAllAnimations();
+                    console.log('动画已启动');
+                }
+            }).catch(function(error) {
+                // 自动播放被阻止，显示提示等待用户点击
+                console.log('需要用户交互才能播放音乐');
+            });
+        }
+    });
 </script>
 </body>
 </html>
